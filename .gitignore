@@ -1,0 +1,16 @@
+# Plugin sub-repos — managed independently, cloned via bin/setup
+gemini-web-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+*.swp
+*.swo
+
+# Claude Code — share project settings, ignore personal overrides + session state
+.claude/settings.local.json
+.claude/scheduled_tasks.json
+.claude/scheduled_tasks.lock

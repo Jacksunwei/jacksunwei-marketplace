@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Bootstrap the workspace: clone each referenced plugin sub-repo via gh.
+# Sub-repos are gitignored — they live in this workspace for local development
+# only; users install via /plugin marketplace add Jacksunwei/claude-plugins
+# (or via each plugin's own standalone marketplace).
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+require() {
+  local cmd="$1" hint="$2"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "✗ '$cmd' not found. Install it first: $hint" >&2
+    exit 1
+  fi
+}
+
+require gh "https://cli.github.com/"
+require uv "https://docs.astral.sh/uv/ (or 'brew install uv')"
+
+clone_if_missing() {
+  local dir="$1" repo="$2"
+  if [[ -d "$dir/.git" ]]; then
+    echo "✓ $dir already cloned"
+  else
+    echo "→ cloning $repo into $dir"
+    gh repo clone "$repo" "$dir"
+  fi
+}
+
+# Add one line per plugin repo. Keep in sync with .claude-plugin/marketplace.json.
+clone_if_missing gemini-web-mcp Jacksunwei/gemini-web-mcp
+
+echo
+echo "✓ all plugin sub-repos present"
