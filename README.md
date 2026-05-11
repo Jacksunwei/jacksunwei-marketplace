@@ -10,7 +10,7 @@ install path.
 ## Install (Claude Code)
 
 ```bash
-/plugin marketplace add Jacksunwei/claude-plugins
+/plugin marketplace add jacksunwei/claude-plugins
 /plugin install gemini-web@jacksunwei-claude-plugins
 ```
 
