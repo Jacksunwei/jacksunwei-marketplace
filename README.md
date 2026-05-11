@@ -12,6 +12,7 @@ install path.
 ```bash
 /plugin marketplace add jacksunwei/claude-plugins
 /plugin install gemini-web@jacksunwei-claude-plugins
+/plugin install telegram-buddy@jacksunwei-claude-plugins
 ```
 
 ## Plugins
@@ -36,8 +37,8 @@ make help        # list common cross-repo tasks
 make smoke-gemini-web
 ```
 
-Each cloned sub-directory (e.g. `gemini-web-mcp/`) is its own independent git repo — `cd` into it, branch, push, PR as
-usual. They are gitignored at the workspace level.
+Each cloned sub-directory (`gemini-web-mcp/`, `claude-telegram-buddy/`) is its own independent git repo — `cd` into it,
+branch, push, PR as usual. They are gitignored at the workspace level.
 
 ## License
 
