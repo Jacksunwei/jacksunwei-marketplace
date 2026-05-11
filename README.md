@@ -11,7 +11,7 @@ install path.
 
 ```bash
 /plugin marketplace add Jacksunwei/claude-plugins
-/plugin install gemini-web@claude-plugins
+/plugin install gemini-web@jacksunwei-claude-plugins
 ```
 
 ## Plugins
