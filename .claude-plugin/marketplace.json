@@ -20,8 +20,9 @@
     {
       "name": "telegram-buddy",
       "source": {
-        "source": "url",
+        "source": "git-subdir",
         "url": "https://github.com/Jacksunwei/claude-telegram-buddy.git",
+        "path": "plugin",
         "ref": "main"
       },
       "description": "Hand off your Claude Code session from terminal to phone (and back) without losing context"
