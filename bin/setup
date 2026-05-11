@@ -30,7 +30,8 @@ clone_if_missing() {
 }
 
 # Add one line per plugin repo. Keep in sync with .claude-plugin/marketplace.json.
-clone_if_missing gemini-web-mcp Jacksunwei/gemini-web-mcp
+clone_if_missing gemini-web-mcp        Jacksunwei/gemini-web-mcp
+clone_if_missing claude-telegram-buddy Jacksunwei/claude-telegram-buddy
 
 echo
 echo "✓ all plugin sub-repos present"

@@ -1,5 +1,6 @@
 # Plugin sub-repos — managed independently, cloned via bin/setup
 gemini-web-mcp/
+claude-telegram-buddy/
 
 # OS
 .DS_Store

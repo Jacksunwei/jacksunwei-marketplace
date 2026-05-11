@@ -16,6 +16,15 @@
         "ref": "main"
       },
       "description": "Gemini-powered tools: web search, URL summarization, and Nano Banana image generation"
+    },
+    {
+      "name": "telegram-buddy",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Jacksunwei/claude-telegram-buddy.git",
+        "ref": "main"
+      },
+      "description": "Hand off your Claude Code session from terminal to phone (and back) without losing context"
     }
   ]
 }

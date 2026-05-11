@@ -16,9 +16,10 @@ install path.
 
 ## Plugins
 
-| Plugin                                                                   | What it does                                                          |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| [`gemini-web`](https://github.com/Jacksunwei/gemini-web-mcp)             | Gemini-powered web search, multi-URL summarization, image generation. |
+| Plugin                                                                       | What it does                                                          |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [`gemini-web`](https://github.com/Jacksunwei/gemini-web-mcp)                 | Gemini-powered web search, multi-URL summarization, image generation. |
+| [`telegram-buddy`](https://github.com/Jacksunwei/claude-telegram-buddy)      | Hand off your Claude Code session from terminal to phone (and back).  |
 
 ## Prerequisites
 
