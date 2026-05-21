@@ -1,11 +1,10 @@
-# Wei (Jack) Sun's Claude Code Plugins
+# Wei (Jack) Sun's Plugins
 
-A small, opinionated marketplace of Claude Code plugins by Wei (Jack) Sun. Each plugin lives in its own repo; this repo
-is the index.
+A small, opinionated marketplace of plugins by Wei (Jack) Sun. Each plugin lives in its own repo; this repo is the
+index — packaged as both a **Claude Code marketplace** and a **Codex CLI marketplace**.
 
-The plugins themselves are MCP servers and work in any MCP client (Gemini CLI, Codex CLI, Antigravity, etc.) — see each
-plugin repo's README for client-specific install instructions. This index marketplace is the Claude Code-specific
-install path.
+The plugins themselves are MCP servers and work in any MCP client (Gemini CLI, Antigravity, etc.) — see each plugin
+repo's README for client-specific install instructions.
 
 ## Install (Claude Code)
 
@@ -15,12 +14,20 @@ install path.
 /plugin install telegram-buddy@jacksunwei-claude-plugins
 ```
 
+## Install (Codex CLI)
+
+```bash
+codex plugin marketplace add Jacksunwei/claude-plugins
+```
+
+Then open the Codex plugin directory and install **Gemini Web** from the `jacksunwei-marketplace` marketplace.
+
 ## Plugins
 
-| Plugin                                                                       | What it does                                                          |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [`gemini-web`](https://github.com/Jacksunwei/gemini-web-mcp)                 | Gemini-powered web search, multi-URL summarization, image generation. |
-| [`telegram-buddy`](https://github.com/Jacksunwei/claude-telegram-buddy)      | Hand off your Claude Code session from terminal to phone (and back).  |
+| Plugin                                                                       | Claude Code | Codex CLI | What it does                                                          |
+| ---------------------------------------------------------------------------- | :---------: | :-------: | --------------------------------------------------------------------- |
+| [`gemini-web`](https://github.com/Jacksunwei/gemini-web-mcp)                 |      ✓      |     ✓     | Gemini-powered web search, multi-URL summarization, image generation. |
+| [`telegram-buddy`](https://github.com/Jacksunwei/claude-telegram-buddy)      |      ✓      |     —     | Hand off your Claude Code session from terminal to phone (and back).  |
 
 ## Prerequisites
 

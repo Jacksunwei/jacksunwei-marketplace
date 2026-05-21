@@ -1,0 +1,21 @@
+{
+  "name": "jacksunwei-marketplace",
+  "interface": {
+    "displayName": "Wei (Jack) Sun's Plugins"
+  },
+  "plugins": [
+    {
+      "name": "gemini-web",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Jacksunwei/gemini-web-mcp.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -4,12 +4,19 @@ Guidance for AI coding agents (Claude Code, Codex CLI, Gemini CLI, Cursor, etc.)
 
 ## Repository purpose
 
-This repo is the **index** for Wei (Jack) Sun's Claude Code plugin marketplace. It does NOT contain plugin source code —
-it only declares which external plugin repos belong to the marketplace, via `.claude-plugin/marketplace.json`.
+This repo is the **index** for Wei (Jack) Sun's plugin marketplaces. It does NOT contain plugin source code — it only
+declares which external plugin repos belong to the marketplace, via two parallel manifests:
 
-The referenced plugins are themselves MCP servers and work with any MCP client; this index just provides the
-Claude Code-specific install path. Other clients (Gemini CLI, Codex CLI, Antigravity) install each plugin directly from
-its own repo — see each plugin's README.
+- **`.claude-plugin/marketplace.json`** — Claude Code marketplace (`jacksunwei-claude-plugins`).
+- **`.agents/plugins/marketplace.json`** — Codex CLI marketplace (`jacksunwei-marketplace`).
+
+The referenced plugins are themselves MCP servers and work with any MCP client; this index provides Claude Code- and
+Codex-specific install paths. Other clients (Gemini CLI, Antigravity) install each plugin directly from its own repo —
+see each plugin's README.
+
+**Codex-readiness lags Claude Code.** A plugin can only appear in the Codex marketplace if its repo ships
+`.codex-plugin/plugin.json`, `.agents/plugins/marketplace.json`, and `.mcp.json` (see `plugins/gemini-web-mcp/` as the
+reference). Plugins without that packaging are Claude Code-only.
 
 ## Multi-repo workflow
 
@@ -62,7 +69,7 @@ make plugin-status                               # per-plugin: branch, ahead/beh
 
 1. Make sure the plugin's standalone repo exists and has `.claude-plugin/marketplace.json` + `.claude-plugin/plugin.json`
    at its root.
-2. Add an entry to `.claude-plugin/marketplace.json`:
+2. Add an entry to `.claude-plugin/marketplace.json` (Claude Code):
    ```json
    {
      "name": "<plugin-name>",
@@ -74,12 +81,30 @@ make plugin-status                               # per-plugin: branch, ahead/beh
      "description": "<one-line description>"
    }
    ```
-3. Register the plugin repo as a submodule under `plugins/`:
+3. **If the plugin is Codex-ready** (ships `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json` +
+   `.mcp.json`), add a parallel entry to `.agents/plugins/marketplace.json`:
+   ```json
+   {
+     "name": "<plugin-name>",
+     "source": {
+       "source": "url",
+       "url": "https://github.com/<owner>/<repo>.git",
+       "ref": "main"
+     },
+     "policy": {
+       "installation": "AVAILABLE",
+       "authentication": "ON_INSTALL"
+     },
+     "category": "<Productivity|Engineering|Research|...>"
+   }
+   ```
+   Otherwise, leave the Codex marketplace alone and note in the README plugin table that the plugin is Claude Code-only.
+4. Register the plugin repo as a submodule under `plugins/`:
    ```bash
    git submodule add -b main https://github.com/<owner>/<repo>.git plugins/<dir-name>
    ```
-4. Add a row to the README plugin table.
-5. Optionally pin a `"sha": "..."` in the marketplace entry for reproducibility (Anthropic does this for partner
+5. Add a row to the README plugin table (including the Claude Code / Codex CLI columns).
+6. Optionally pin a `"sha": "..."` in either marketplace entry for reproducibility (Anthropic does this for partner
    plugins).
 
 ## Common commands
@@ -100,3 +125,5 @@ There is no test suite. Validate by:
 2. Running `make smoke-<plugin>` for any modified plugin.
 3. Installing this marketplace in Claude Code (use the absolute path to this repo:
    `/plugin marketplace add /path/to/claude-plugins`) and exercising at least one tool per plugin.
+4. For Codex marketplace changes: `codex plugin marketplace add /path/to/claude-plugins` and confirm the plugin appears
+   in the Codex plugin directory under `jacksunwei-marketplace`.
