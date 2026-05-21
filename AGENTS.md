@@ -29,11 +29,34 @@ bin/setup
 `bin/setup` runs `git submodule update --init --recursive` then `git checkout main` inside each plugin so commits
 won't land in detached HEAD.
 
-### Edit a plugin
+### Edit a plugin and propagate the change (canonical flow)
 
-`cd plugins/<name>`, branch + commit + push as usual. Each submodule is a full git repo with its own remote. After
-pushing in the plugin, stage the new SHA in the index repo (`git add plugins/<name>`) and commit it so cloners get the
-latest pin by default.
+```bash
+# 1. Edit + push in the plugin repo
+cd plugins/<name>
+git checkout main && git pull --ff-only          # safety: ensure you're at tip
+# ...edit, commit...
+git push
+
+# 2. Record the new SHA in the index
+cd ../..
+make bump-plugin PLUGIN=<name>                   # stages + commits the SHA bump
+git push
+```
+
+### Pull every plugin to upstream latest
+
+```bash
+make sync-plugins                                # fast-forwards all submodules, stages SHA bumps
+git commit -m "sync plugins"
+git push
+```
+
+### Inspect state
+
+```bash
+make plugin-status                               # per-plugin: branch, ahead/behind vs origin/main, SHA-vs-index match
+```
 
 ## Adding a plugin to the index
 
@@ -64,6 +87,9 @@ latest pin by default.
 ```bash
 bin/setup                                # init submodules + checkout main in each
 make help                                # list all make targets
+make plugin-status                       # show per-plugin sync state
+make sync-plugins                        # pull every plugin to upstream main, stage bumps
+make bump-plugin PLUGIN=<name>           # commit the SHA bump for one plugin
 make smoke-gemini-web                    # boot gemini-web MCP server briefly
 ```
 

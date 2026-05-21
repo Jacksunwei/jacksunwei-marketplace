@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Report per-plugin: branch, ahead/behind vs origin/main, and whether the
+# checked-out SHA matches the SHA recorded in the index repo.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+git submodule foreach --quiet '
+  git fetch --quiet origin main 2>/dev/null || true
+  current=$(git rev-parse HEAD)
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  ahead=$(git rev-list --count origin/main..HEAD 2>/dev/null || echo "?")
+  behind=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo "?")
+  if [ "$sha1" = "$current" ]; then
+    match="✓ matches index"
+  else
+    match="✗ index records $(printf %s "$sha1" | cut -c1-7)"
+  fi
+  printf "  %-32s branch=%-10s ahead=%s behind=%s  %s\n" \
+    "$displaypath" "$branch" "$ahead" "$behind" "$match"
+'

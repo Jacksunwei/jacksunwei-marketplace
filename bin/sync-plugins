@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Fast-forward every plugin submodule to upstream main and stage the
+# resulting SHA bumps in the index repo. Review with `git diff --cached`
+# and commit + push when satisfied.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+echo "→ pulling latest main for each plugin"
+git submodule foreach --quiet '
+  git checkout --quiet main
+  before=$(git rev-parse --short HEAD)
+  git pull --ff-only --quiet origin main
+  after=$(git rev-parse --short HEAD)
+  if [ "$before" = "$after" ]; then
+    echo "  · $displaypath: already at $after"
+  else
+    echo "  ✓ $displaypath: $before → $after"
+  fi
+'
+
+echo "→ staging submodule SHA bumps"
+git add plugins/
+
+echo
+echo "✓ done. Review with 'git diff --cached', commit, and push."
