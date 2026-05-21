@@ -29,16 +29,21 @@ install path.
 
 ## Local development
 
-This repo is also a workspace for editing the referenced plugin repos side-by-side:
+This repo is also a workspace for editing the referenced plugin repos side-by-side. Each plugin is tracked as a git
+submodule pinned to `main`:
 
 ```bash
-bin/setup        # clone every referenced plugin into this directory (gitignored)
-make help        # list common cross-repo tasks
+git clone --recursive https://github.com/Jacksunwei/claude-plugins.git
+# or, if already cloned:
+bin/setup                          # runs git submodule update --init --recursive
+
+git submodule update --remote      # pull latest main for every plugin
+make help                          # list common cross-repo tasks
 make smoke-gemini-web
 ```
 
-Each cloned sub-directory (`gemini-web-mcp/`, `claude-telegram-buddy/`) is its own independent git repo — `cd` into it,
-branch, push, PR as usual. They are gitignored at the workspace level.
+Each sub-directory under `plugins/` (`plugins/gemini-web-mcp/`, `plugins/claude-telegram-buddy/`) is its own
+independent git repo with its own remote — `cd` into it, branch, push, PR as usual.
 
 ## License
 

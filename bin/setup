@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-# Bootstrap the workspace: clone each referenced plugin sub-repo via gh.
-# Sub-repos are gitignored — they live in this workspace for local development
-# only; users install via /plugin marketplace add Jacksunwei/claude-plugins
-# (or via each plugin's own standalone marketplace).
+# Bootstrap the workspace: initialize each plugin sub-repo via git submodule
+# and check out main in each so commits don't land in detached HEAD.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,22 +14,21 @@ require() {
   fi
 }
 
-require gh "https://cli.github.com/"
-require uv "https://docs.astral.sh/uv/ (or 'brew install uv')"
+require git "https://git-scm.com/"
+require uv  "https://docs.astral.sh/uv/ (or 'brew install uv')"
 
-clone_if_missing() {
-  local dir="$1" repo="$2"
-  if [[ -d "$dir/.git" ]]; then
-    echo "✓ $dir already cloned"
+echo "→ initializing plugin submodules"
+git submodule update --init --recursive
+
+echo "→ checking out main in each plugin (avoid detached HEAD)"
+git submodule foreach --quiet '
+  if git show-ref --verify --quiet refs/heads/main; then
+    git checkout --quiet main
   else
-    echo "→ cloning $repo into $dir"
-    gh repo clone "$repo" "$dir"
+    echo "  ! $displaypath has no local main branch; left at $(git rev-parse --short HEAD)"
   fi
-}
-
-# Add one line per plugin repo. Keep in sync with .claude-plugin/marketplace.json.
-clone_if_missing gemini-web-mcp        Jacksunwei/gemini-web-mcp
-clone_if_missing claude-telegram-buddy Jacksunwei/claude-telegram-buddy
+'
 
 echo
-echo "✓ all plugin sub-repos present"
+echo "✓ all plugin sub-repos present and on main"
+echo "  Hint: 'make plugin-status' shows per-plugin sync state."

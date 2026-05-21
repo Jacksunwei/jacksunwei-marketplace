@@ -1,0 +1,8 @@
+[submodule "gemini-web-mcp"]
+	path = plugins/gemini-web-mcp
+	url = https://github.com/Jacksunwei/gemini-web-mcp.git
+	branch = main
+[submodule "claude-telegram-buddy"]
+	path = plugins/claude-telegram-buddy
+	url = https://github.com/Jacksunwei/claude-telegram-buddy.git
+	branch = main

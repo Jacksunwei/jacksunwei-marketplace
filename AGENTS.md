@@ -13,16 +13,27 @@ its own repo — see each plugin's README.
 
 ## Multi-repo workflow
 
-Each plugin lives in its own repo on GitHub (e.g. `Jacksunwei/gemini-web-mcp`). For local development:
+Each plugin lives in its own repo on GitHub (e.g. `Jacksunwei/gemini-web-mcp`) and is tracked here as a **git
+submodule** under `plugins/`, pinned to `main`. End-user installs use `ref: main` from
+`.claude-plugin/marketplace.json` and always resolve to upstream latest — the submodule SHAs recorded in this repo
+are a local-dev convenience so cloners get a reproducible snapshot.
 
-1. `bin/setup` clones every referenced plugin into this directory as a sibling sub-repo. Sub-repos are gitignored at the
-   workspace level — they are independent git repos with their own remotes.
-2. To edit a plugin: `cd <plugin-dir>`, branch + commit + push as usual.
-3. To add a new plugin to the index: append a new entry to `.claude-plugin/marketplace.json` AND a new
-   `clone_if_missing` line to `bin/setup` (keep the two in sync — hand-maintained).
+### One-time setup
 
-This pattern mirrors `~/Github/jacksunwei.me`, which uses the same gitignored-sibling-clone approach (no submodules —
-deliberately, for ergonomic per-repo branching).
+```bash
+git clone --recursive https://github.com/Jacksunwei/claude-plugins.git
+# or, if already cloned without --recursive:
+bin/setup
+```
+
+`bin/setup` runs `git submodule update --init --recursive` then `git checkout main` inside each plugin so commits
+won't land in detached HEAD.
+
+### Edit a plugin
+
+`cd plugins/<name>`, branch + commit + push as usual. Each submodule is a full git repo with its own remote. After
+pushing in the plugin, stage the new SHA in the index repo (`git add plugins/<name>`) and commit it so cloners get the
+latest pin by default.
 
 ## Adding a plugin to the index
 
@@ -40,7 +51,10 @@ deliberately, for ergonomic per-repo branching).
      "description": "<one-line description>"
    }
    ```
-3. Add a `clone_if_missing <dir-name> <owner>/<repo>` line to `bin/setup`.
+3. Register the plugin repo as a submodule under `plugins/`:
+   ```bash
+   git submodule add -b main https://github.com/<owner>/<repo>.git plugins/<dir-name>
+   ```
 4. Add a row to the README plugin table.
 5. Optionally pin a `"sha": "..."` in the marketplace entry for reproducibility (Anthropic does this for partner
    plugins).
@@ -48,15 +62,15 @@ deliberately, for ergonomic per-repo branching).
 ## Common commands
 
 ```bash
-bin/setup                 # clone every referenced plugin sub-repo
-make help                 # list cross-repo make targets
-make smoke-gemini-web     # boot the gemini-web MCP server briefly
+bin/setup                                # init submodules + checkout main in each
+make help                                # list all make targets
+make smoke-gemini-web                    # boot gemini-web MCP server briefly
 ```
 
 ## Validating changes
 
 There is no test suite. Validate by:
-1. Running `bin/setup` from a clean directory to confirm clones succeed.
+1. Running `bin/setup` from a clean directory to confirm submodule init succeeds.
 2. Running `make smoke-<plugin>` for any modified plugin.
 3. Installing this marketplace in Claude Code (use the absolute path to this repo:
    `/plugin marketplace add /path/to/claude-plugins`) and exercising at least one tool per plugin.
