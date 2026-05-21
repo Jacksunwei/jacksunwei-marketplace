@@ -1,10 +1,10 @@
 {
-  "name": "jacksunwei-claude-plugins",
+  "name": "jacksunwei-marketplace",
   "owner": {
     "name": "Wei (Jack) Sun"
   },
   "metadata": {
-    "description": "Wei (Jack) Sun's curated Claude Code plugin index — references each plugin from its own standalone repo.",
+    "description": "Wei (Jack) Sun's curated plugin index — references each plugin from its own standalone repo.",
     "version": "0.1.0"
   },
   "plugins": [

@@ -7,7 +7,7 @@ Guidance for AI coding agents (Claude Code, Codex CLI, Gemini CLI, Cursor, etc.)
 This repo is the **index** for Wei (Jack) Sun's plugin marketplaces. It does NOT contain plugin source code — it only
 declares which external plugin repos belong to the marketplace, via two parallel manifests:
 
-- **`.claude-plugin/marketplace.json`** — Claude Code marketplace (`jacksunwei-claude-plugins`).
+- **`.claude-plugin/marketplace.json`** — Claude Code marketplace (`jacksunwei-marketplace`).
 - **`.agents/plugins/marketplace.json`** — Codex CLI marketplace (`jacksunwei-marketplace`).
 
 The referenced plugins are themselves MCP servers and work with any MCP client; this index provides Claude Code- and
@@ -28,7 +28,7 @@ are a local-dev convenience so cloners get a reproducible snapshot.
 ### One-time setup
 
 ```bash
-git clone --recursive https://github.com/Jacksunwei/claude-plugins.git
+git clone --recursive https://github.com/Jacksunwei/jacksunwei-marketplace.git
 # or, if already cloned without --recursive:
 bin/setup
 ```
@@ -124,6 +124,6 @@ There is no test suite. Validate by:
 1. Running `bin/setup` from a clean directory to confirm submodule init succeeds.
 2. Running `make smoke-<plugin>` for any modified plugin.
 3. Installing this marketplace in Claude Code (use the absolute path to this repo:
-   `/plugin marketplace add /path/to/claude-plugins`) and exercising at least one tool per plugin.
-4. For Codex marketplace changes: `codex plugin marketplace add /path/to/claude-plugins` and confirm the plugin appears
-   in the Codex plugin directory under `jacksunwei-marketplace`.
+   `/plugin marketplace add /path/to/jacksunwei-marketplace`) and exercising at least one tool per plugin.
+4. For Codex marketplace changes: `codex plugin marketplace add /path/to/jacksunwei-marketplace` and confirm the plugin
+   appears in the Codex plugin directory under `jacksunwei-marketplace`.

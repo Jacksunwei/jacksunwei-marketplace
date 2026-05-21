@@ -9,15 +9,15 @@ repo's README for client-specific install instructions.
 ## Install (Claude Code)
 
 ```bash
-/plugin marketplace add jacksunwei/claude-plugins
-/plugin install gemini-web@jacksunwei-claude-plugins
-/plugin install telegram-buddy@jacksunwei-claude-plugins
+/plugin marketplace add jacksunwei/jacksunwei-marketplace
+/plugin install gemini-web@jacksunwei-marketplace
+/plugin install telegram-buddy@jacksunwei-marketplace
 ```
 
 ## Install (Codex CLI)
 
 ```bash
-codex plugin marketplace add Jacksunwei/claude-plugins
+codex plugin marketplace add Jacksunwei/jacksunwei-marketplace
 ```
 
 Then open the Codex plugin directory and install **Gemini Web** from the `jacksunwei-marketplace` marketplace.
@@ -40,7 +40,7 @@ This repo is also a workspace for editing the referenced plugin repos side-by-si
 submodule pinned to `main`:
 
 ```bash
-git clone --recursive https://github.com/Jacksunwei/claude-plugins.git
+git clone --recursive https://github.com/Jacksunwei/jacksunwei-marketplace.git
 # or, if already cloned:
 bin/setup                          # runs git submodule update --init --recursive
 
