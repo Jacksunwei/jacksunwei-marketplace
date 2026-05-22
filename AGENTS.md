@@ -99,10 +99,12 @@ make plugin-status                               # per-plugin: branch, ahead/beh
    }
    ```
    Otherwise, leave the Codex marketplace alone and note in the README plugin table that the plugin is Claude Code-only.
-4. Register the plugin repo as a submodule under `plugins/`:
+4. **If the plugin is one I maintain**, register the plugin repo as a submodule under `plugins/`:
    ```bash
    git submodule add -b main https://github.com/<owner>/<repo>.git plugins/<dir-name>
    ```
+   Submodules are a local-dev convenience for side-by-side editing across repos I own. Skip this step for
+   third-party plugins — referencing them by URL from `marketplace.json` is enough.
 5. Add a row to the README plugin table (including the Claude Code / Codex CLI columns).
 6. Optionally pin a `"sha": "..."` in either marketplace entry for reproducibility (Anthropic does this for partner
    plugins).
@@ -117,6 +119,22 @@ make sync-plugins                        # pull every plugin to upstream main, s
 make bump-plugin PLUGIN=<name>           # commit the SHA bump for one plugin
 make smoke-gemini-web                    # boot gemini-web MCP server briefly
 ```
+
+## Commits
+
+Use **Conventional Commits** with the subject answering *why*, not just *what*. Body explains motivation; the diff
+already shows the mechanics.
+
+```
+<type>(<scope>): <description>
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`.
+
+Rules:
+- Imperative mood, lowercase, no trailing period.
+- Subject explains the *reason* or outcome — a reviewer reading only the subject should understand the motivation.
+- **No AI attribution** in commit messages — no `Co-Authored-By: Claude`, no "Generated with Claude Code" footers.
 
 ## Validating changes
 

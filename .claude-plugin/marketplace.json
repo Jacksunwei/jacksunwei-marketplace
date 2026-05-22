@@ -26,6 +26,15 @@
         "ref": "main"
       },
       "description": "Hand off your Claude Code session from terminal to phone (and back) without losing context"
+    },
+    {
+      "name": "openscad",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/fingerskier/openscad-claude-plugin.git",
+        "ref": "main"
+      },
+      "description": "OpenSCAD parametric 3D modeling — generate, edit, visually inspect, and export STLs for 3D printing (by fingerskier)"
     }
   ]
 }

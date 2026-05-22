@@ -12,6 +12,7 @@ repo's README for client-specific install instructions.
 /plugin marketplace add jacksunwei/jacksunwei-marketplace
 /plugin install gemini-web@jacksunwei-marketplace
 /plugin install telegram-buddy@jacksunwei-marketplace
+/plugin install openscad@jacksunwei-marketplace
 ```
 
 ## Install (Codex CLI)
@@ -28,6 +29,7 @@ Then open the Codex plugin directory and install **Gemini Web** from the `jacksu
 | ---------------------------------------------------------------------------- | :---------: | :-------: | --------------------------------------------------------------------- |
 | [`gemini-web`](https://github.com/Jacksunwei/gemini-web-mcp)                 |      ✓      |     ✓     | Gemini-powered web search, multi-URL summarization, image generation. |
 | [`telegram-buddy`](https://github.com/Jacksunwei/claude-telegram-buddy)      |      ✓      |     —     | Hand off your Claude Code session from terminal to phone (and back).  |
+| [`openscad`](https://github.com/fingerskier/openscad-claude-plugin)          |      ✓      |     —     | Parametric 3D modeling with OpenSCAD: generate, view, export STLs for 3D printing (third-party, by fingerskier). |
 
 ## Prerequisites
 
